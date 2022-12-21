@@ -1,5 +1,6 @@
 package com.rootlab.junit.repository;
 
+import com.rootlab.junit.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -9,10 +10,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class BookRepositoryTest {
 	@Test
 	public void registerBook() {
-	    // given
-	    
-	    // when
-	    
-	    // then
+		// given
+		String title = "title";
+		String author = "author";
+		// when
+		Book book = Book.builder().title(title).author(author).build();
+		// then
+		assertEquals(title, book.getTitle());
+		assertEquals(author, book.getAuthor());
 	}
 }
