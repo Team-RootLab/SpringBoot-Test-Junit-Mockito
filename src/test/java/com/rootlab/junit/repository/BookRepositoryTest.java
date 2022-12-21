@@ -126,4 +126,30 @@ class BookRepositoryTest {
 		Optional<Book> optionalBook = bookRepository.findById(id);
 		assertFalse(optionalBook.isPresent());
 	}
+
+	@Test
+	@Sql("classpath:sql/initTable.sql")
+	@DisplayName("책정보수정하기")
+	public void updateBookTest() {
+		// given
+		Long id = 1L;
+		String title = "updatedTitle";
+		String author = "updatedAuthor";
+		// when
+//		bookRepository.findAll().stream().forEach(
+//				(book) -> {
+//					System.out.println("book = " + book);
+//				}
+//		);
+		Book newBook = new Book(id, title, author);
+		Book savedBook = bookRepository.save(newBook);
+		// then
+//		bookRepository.findAll().stream().forEach(
+//				(book) -> {
+//					System.out.println("book = " + book);
+//				}
+//		);
+		assertEquals(title, savedBook.getTitle());
+		assertEquals(author, savedBook.getAuthor());
+	}
 }
