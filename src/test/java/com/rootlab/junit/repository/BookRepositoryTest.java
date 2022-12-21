@@ -6,8 +6,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -66,7 +68,7 @@ class BookRepositoryTest {
 	}
 
 	@Test
-	@DisplayName("책한권보기")
+	@DisplayName("책한권보기1")
 	public void findOneBookTest() {
 		// given
 		String title = "title";
@@ -78,5 +80,50 @@ class BookRepositoryTest {
 		// then
 		assertEquals(title, savedBook.getTitle());
 		assertEquals(author, savedBook.getAuthor());
+	}
+
+	@Test
+	@Sql("classpath:sql/initTable.sql")
+	@DisplayName("책한권보기2")
+	public void findOneBookTestWithSql() {
+		// given
+		String title = "title";
+		String author = "author";
+		// when
+		Book savedBook = bookRepository.findById(1L).get();
+		System.out.println("savedBook = " + savedBook);
+		// then
+		assertEquals(title, savedBook.getTitle());
+		assertEquals(author, savedBook.getAuthor());
+	}
+
+	@Test
+	@DisplayName("책삭제하기1")
+	public void deleteBookTest() {
+		// given
+		String title = "title";
+		String author = "author";
+		Book savedBook = bookRepository.findByTitle(title).get();
+		Long id = savedBook.getId();
+		// when
+		bookRepository.deleteById(id);
+		// then
+		Optional<Book> optionalBook = bookRepository.findById(id);
+		assertFalse(optionalBook.isPresent());
+	}
+
+	@Test
+	@Sql("classpath:sql/initTable.sql")
+	@DisplayName("책삭제하기2")
+	public void deleteBookTestWithSql() {
+		// given
+		Long id = 1L;
+		String title = "title";
+		String author = "author";
+		// when
+		bookRepository.deleteById(id);
+		// then
+		Optional<Book> optionalBook = bookRepository.findById(id);
+		assertFalse(optionalBook.isPresent());
 	}
 }
