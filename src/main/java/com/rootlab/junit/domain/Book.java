@@ -1,13 +1,16 @@
 package com.rootlab.junit.domain;
 
+import com.rootlab.junit.dto.BookResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Book {
 	@Id
@@ -23,6 +26,14 @@ public class Book {
 		this.id = id;
 		this.title = title;
 		this.author = author;
+	}
+
+	public BookResponseDto toDto() {
+		return BookResponseDto.builder()
+				.id(id)
+				.title(title)
+				.author(author)
+				.build();
 	}
 
 	@Override

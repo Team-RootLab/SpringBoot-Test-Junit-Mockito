@@ -102,7 +102,6 @@ class BookRepositoryTest {
 	public void deleteBookTest() {
 		// given
 		String title = "title";
-		String author = "author";
 		Book savedBook = bookRepository.findByTitle(title).get();
 		Long id = savedBook.getId();
 		// when
@@ -118,8 +117,6 @@ class BookRepositoryTest {
 	public void deleteBookTestWithSql() {
 		// given
 		Long id = 1L;
-		String title = "title";
-		String author = "author";
 		// when
 		bookRepository.deleteById(id);
 		// then
@@ -129,13 +126,14 @@ class BookRepositoryTest {
 
 	@Test
 	@Sql("classpath:sql/initTable.sql")
-	@DisplayName("책정보수정하기")
-	public void updateBookTest() {
+	@DisplayName("책정보수정하기1")
+	public void updateBookTestWithSql() {
 		// given
 		Long id = 1L;
 		String title = "updatedTitle";
 		String author = "updatedAuthor";
 		// when
+		// @Sql로 Table을 초기화해도 메모리상에 데이터가 존재함 확인
 //		bookRepository.findAll().stream().forEach(
 //				(book) -> {
 //					System.out.println("book = " + book);
@@ -151,5 +149,21 @@ class BookRepositoryTest {
 //		);
 		assertEquals(title, savedBook.getTitle());
 		assertEquals(author, savedBook.getAuthor());
+	}
+
+	@Test
+	@DisplayName("책정보수정하기2")
+	public void updateBookTest() {
+		// given
+		String title = "title";
+		String updatedTitle = "updatedTitle";
+		String updatedAuthor = "updatedAuthor";
+		// when
+		Book savedBook = bookRepository.findByTitle(title).get();
+		savedBook.setTitle(updatedTitle);
+		savedBook.setAuthor(updatedAuthor);
+		// then
+		assertEquals(updatedTitle, savedBook.getTitle());
+		assertEquals(updatedAuthor, savedBook.getAuthor());
 	}
 }
