@@ -1,5 +1,6 @@
 package com.rootlab.junit.service;
 
+import com.rootlab.junit.domain.Book;
 import com.rootlab.junit.dto.BookRequestDto;
 import com.rootlab.junit.dto.BookResponseDto;
 import com.rootlab.junit.repository.BookRepository;
@@ -10,6 +11,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -45,5 +49,24 @@ public class BookServiceTestWithMockito {
 		// then: AssertJ 사용하기
 		assertThat(responseDto.getTitle()).isEqualTo(responseDto.getTitle());
 		assertThat(responseDto.getAuthor()).isEqualTo(responseDto.getAuthor());
+	}
+
+	@Test
+	@DisplayName("책목록보기")
+	public void getBookDtoListTest() {
+		// given
+		List<Book> books = Arrays.asList(
+				new Book(1L, "title1", "author1"),
+				new Book(2L, "title2", "author2")
+		);
+		// stub
+		when(bookRepository.findAll()).thenReturn(books);
+		// when
+		List<BookResponseDto> bookDtoList = bookService.getBookDtoList();
+		// then
+		assertThat(bookDtoList.get(0).getTitle()).isEqualTo(books.get(0).getTitle());
+		assertThat(bookDtoList.get(0).getAuthor()).isEqualTo(books.get(0).getAuthor());
+		assertThat(bookDtoList.get(1).getTitle()).isEqualTo(books.get(1).getTitle());
+		assertThat(bookDtoList.get(1).getAuthor()).isEqualTo(books.get(1).getAuthor());
 	}
 }
