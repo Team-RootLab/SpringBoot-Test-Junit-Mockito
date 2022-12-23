@@ -36,6 +36,11 @@ public class Book {
 				.build();
 	}
 
+	public void update(String title, String author) {
+		this.title = title;
+		this.author = author;
+	}
+
 	@Override
 	public String toString() {
 		return "Book{" +
@@ -44,4 +49,5 @@ public class Book {
 				", author='" + author + '\'' +
 				'}';
 	}
+
 }
