@@ -4,7 +4,7 @@ import com.rootlab.junit.dto.BookRequestDto;
 import com.rootlab.junit.dto.BookResponseDto;
 import com.rootlab.junit.repository.BookRepository;
 import com.rootlab.junit.util.MailSender;
-import com.rootlab.junit.util.MailSenderStub;
+import com.rootlab.junit.util.MailSenderAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,8 @@ class BookServiceTest {
 		requestDto.setTitle(title);
 		requestDto.setAuthor(author);
 		// stub
-		MailSender mailSender = new MailSenderStub();
+//		MailSender mailSender = new MailSenderStub();
+		MailSender mailSender = new MailSenderAdapter();
 	    // when
 		BookService bookService = new BookService(bookRepository, mailSender);
 		BookResponseDto responseDto = bookService.registerBook(requestDto);
