@@ -1,6 +1,7 @@
 package com.rootlab.junit.service;
 
 import com.rootlab.junit.domain.Book;
+import com.rootlab.junit.dto.BookListResponseDto;
 import com.rootlab.junit.dto.BookRequestDto;
 import com.rootlab.junit.dto.BookResponseDto;
 import com.rootlab.junit.repository.BookRepository;
@@ -63,12 +64,12 @@ public class BookServiceTestWithMockito {
 		// stub
 		when(bookRepository.findAll()).thenReturn(books);
 		// when
-		List<BookResponseDto> bookDtoList = bookService.getBookDtoList();
+		BookListResponseDto bookDtoList = bookService.getBookDtoList();
 		// then
-		assertThat(bookDtoList.get(0).getTitle()).isEqualTo(books.get(0).getTitle());
-		assertThat(bookDtoList.get(0).getAuthor()).isEqualTo(books.get(0).getAuthor());
-		assertThat(bookDtoList.get(1).getTitle()).isEqualTo(books.get(1).getTitle());
-		assertThat(bookDtoList.get(1).getAuthor()).isEqualTo(books.get(1).getAuthor());
+		assertThat(bookDtoList.getItems().get(0).getTitle()).isEqualTo(books.get(0).getTitle());
+		assertThat(bookDtoList.getItems().get(0).getAuthor()).isEqualTo(books.get(0).getAuthor());
+		assertThat(bookDtoList.getItems().get(1).getTitle()).isEqualTo(books.get(1).getTitle());
+		assertThat(bookDtoList.getItems().get(1).getAuthor()).isEqualTo(books.get(1).getAuthor());
 	}
 
 	@Test

@@ -4,15 +4,6 @@ Content-Type: application/json
 
 {
   "title": "title",
-  "author": "author"
-}
-
-###
-POST http://localhost:8081/api/v1/book
-Content-Type: application/json
-
-{
-  "title": "title",
   "author": ""
 }
 

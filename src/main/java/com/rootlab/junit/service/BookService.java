@@ -1,6 +1,7 @@
 package com.rootlab.junit.service;
 
 import com.rootlab.junit.domain.Book;
+import com.rootlab.junit.dto.BookListResponseDto;
 import com.rootlab.junit.dto.BookRequestDto;
 import com.rootlab.junit.dto.BookResponseDto;
 import com.rootlab.junit.repository.BookRepository;
@@ -23,7 +24,7 @@ public class BookService {
 	@Transactional(rollbackOn = RuntimeException.class)
 	public BookResponseDto registerBook(BookRequestDto dto) {
 		Book savedBook = bookRepository.save(dto.toEntity());
-		Optional<Book> optionalBook = Optional.ofNullable(savedBook);
+		Optional<Book> optionalBook = Optional.of(savedBook);
 		optionalBook.ifPresent(
 				(book) -> {
 					if (!mailSender.send()) {
@@ -34,11 +35,12 @@ public class BookService {
 		return savedBook.toDto();
 	}
 
-	public List<BookResponseDto> getBookDtoList() {
-		return bookRepository.findAll().stream()
+	public BookListResponseDto getBookDtoList() {
+		List<BookResponseDto> dtos = bookRepository.findAll().stream()
 //				.map((book) -> book.toDto())
 				.map(Book::toDto)
 				.collect(Collectors.toList());
+		return BookListResponseDto.builder().items(dtos).build();
 	}
 
 	public BookResponseDto getBookDto(Long id) {
@@ -56,6 +58,7 @@ public class BookService {
 		bookRepository.deleteById(id);
 	}
 
+	@Transactional(rollbackOn = RuntimeException.class)
 	public BookResponseDto updateBook(Long id, BookRequestDto dto) {
 		Optional<Book> optionalBook = bookRepository.findById(id);
 		optionalBook.orElseThrow(
