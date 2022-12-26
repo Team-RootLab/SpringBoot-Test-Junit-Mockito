@@ -89,6 +89,24 @@ public class BookServiceTestWithMockito {
 		// then
 		assertThat(dto.getTitle()).isEqualTo(book.getTitle());
 		assertThat(dto.getAuthor()).isEqualTo(book.getAuthor());
+	}
 
+	@Test
+	@DisplayName("책수정하기")
+	public void updateBookTest() {
+		// given
+		Long id = 1L;
+		BookRequestDto requestDto = new BookRequestDto();
+		requestDto.setTitle("title2");
+		requestDto.setAuthor("author2");
+		// stub
+		Book book = new Book(1L, "title1", "author1");
+		Optional<Book> optionalBook = Optional.of(book);
+		when(bookRepository.findById(id)).thenReturn(optionalBook);
+		// when
+		BookResponseDto responseDto = bookService.updateBook(1L, requestDto);
+		// then
+		assertThat(responseDto.getTitle()).isEqualTo(requestDto.getTitle());
+		assertThat(responseDto.getAuthor()).isEqualTo(requestDto.getAuthor());
 	}
 }
