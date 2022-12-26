@@ -6,3 +6,63 @@ Content-Type: application/json
   "title": "title",
   "author": "author"
 }
+
+###
+POST http://localhost:8081/api/v1/book
+Content-Type: application/json
+
+{
+  "title": "title",
+  "author": ""
+}
+
+###
+POST http://localhost:8081/api/v1/book
+Content-Type: application/json
+
+{
+  "title": "",
+  "author": "author"
+}
+
+###
+POST http://localhost:8081/api/v1/book
+Content-Type: application/json
+
+{
+  "title": "title",
+}
+
+###
+POST http://localhost:8081/api/v1/book
+Content-Type: application/json
+
+{
+  "title": "title"
+}
+
+###
+POST http://localhost:8081/api/v1/book
+Content-Type: application/json
+
+{
+  "author": "author"
+}
+
+###
+POST http://localhost:8081/api/v1/book
+Content-Type: application/json
+
+{
+  "title": "titletitletitletitletitletitletitletitletitletitletitletitletitletitle",
+  "author": "author"
+}
+
+###
+POST http://localhost:8081/api/v1/book
+Content-Type: application/json
+
+{
+  "title": "title",
+  "author": "authorauthorauthorauthorauthorauthorauthorauthor"
+}
