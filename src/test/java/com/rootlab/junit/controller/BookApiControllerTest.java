@@ -2,10 +2,21 @@ package com.rootlab.junit.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.Option;
+import com.jayway.jsonpath.spi.json.JacksonJsonProvider;
+import com.jayway.jsonpath.spi.json.JsonProvider;
+import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
+import com.jayway.jsonpath.spi.mapper.MappingProvider;
+import com.rootlab.junit.domain.Book;
 import com.rootlab.junit.dto.BookRequestDto;
+import com.rootlab.junit.dto.BookResponseDto;
+import com.rootlab.junit.repository.BookRepository;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,10 +24,16 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT) // (C, S, R) 통합테스트
 class BookApiControllerTest {
+
+	@Autowired
+	private BookRepository bookRepository;
 
 	@Autowired
 	private TestRestTemplate restTemplate;
@@ -31,9 +48,21 @@ class BookApiControllerTest {
 		headers.setContentType(MediaType.APPLICATION_JSON);
 	}
 
+	@BeforeEach
+	@DisplayName("데이터준비하기")
+	public void prepareBookData() {
+		String title = "title";
+		String author = "author";
+		Book book = Book.builder()
+				.title(title)
+				.author(author)
+				.build();
+		bookRepository.save(book);
+	}
+
 	@Test
 	public void saveBookTest() throws JsonProcessingException {
-	    // given
+		// given
 		BookRequestDto requestDto = new BookRequestDto();
 		requestDto.setTitle("title");
 		requestDto.setAuthor("author");
@@ -43,11 +72,51 @@ class BookApiControllerTest {
 		ResponseEntity<String> response = restTemplate.exchange("/api/v1/book", HttpMethod.POST, request, String.class);
 //		ResponseEntity<? extends Object> response = restTemplate.exchange("/api/v1/book", HttpMethod.POST, request, String.class);
 //		System.out.println("body = " + response.getBody());
-	    // then
+		// then
 		DocumentContext context = JsonPath.parse(response.getBody());
 		String title = context.read("$.body.title");
 		String author = context.read("$.body.author");
 		assertThat(title).isEqualTo(requestDto.getTitle());
 		assertThat(author).isEqualTo(requestDto.getAuthor());
+	}
+
+	@Test
+	public void getBookList() {
+		// when
+		HttpEntity<String> request = new HttpEntity<>("", headers);
+		ResponseEntity<String> response = restTemplate.exchange("/api/v1/book", HttpMethod.GET, request, String.class);
+		// then
+
+		/**
+		 * context.read("$.body.items[0]")의 결과를 POJO로 변환하기 위해
+		 * JacksonMappingProvider와 JacksonJsonProvider를 사용하도록 설정함
+		 * 공식문서 https://github.com/json-path/JsonPath "What is Returned When?"문단 참고
+		 */
+		Configuration.setDefaults(new Configuration.Defaults() {
+			private final JsonProvider jsonProvider = new JacksonJsonProvider();
+			private final MappingProvider mappingProvider = new JacksonMappingProvider();
+
+			@Override
+			public JsonProvider jsonProvider() {
+				return jsonProvider;
+			}
+
+			@Override
+			public MappingProvider mappingProvider() {
+				return mappingProvider;
+			}
+
+			@Override
+			public Set<Option> options() {
+				return EnumSet.noneOf(Option.class);
+			}
+		});
+
+		DocumentContext context = JsonPath.parse(response.getBody());
+		Integer code = context.read("$.code");
+		BookResponseDto bookResponseDto = context.read("$.body.items[0]", BookResponseDto.class);
+		assertThat(code).isEqualTo(1);
+		assertThat(bookResponseDto.getTitle()).isEqualTo("title");
+		assertThat(bookResponseDto.getAuthor()).isEqualTo("author");
 	}
 }
