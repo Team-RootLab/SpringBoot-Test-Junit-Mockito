@@ -1,6 +1,5 @@
-package com.rootlab.junit.repository;
+package com.rootlab.junit.unit;
 
-import com.rootlab.junit.domain.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PaymentRepository extends JpaRepository<Payment, Long> {

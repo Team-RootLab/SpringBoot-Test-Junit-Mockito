@@ -1,10 +1,5 @@
-package com.rootlab.junit.service;
+package com.rootlab.junit.unit;
 
-import com.rootlab.junit.domain.Order;
-import com.rootlab.junit.domain.Payment;
-import com.rootlab.junit.exception.PaymentException;
-import com.rootlab.junit.repository.OrderRepository;
-import com.rootlab.junit.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

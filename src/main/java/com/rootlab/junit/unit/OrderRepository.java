@@ -1,6 +1,5 @@
-package com.rootlab.junit.repository;
+package com.rootlab.junit.unit;
 
-import com.rootlab.junit.domain.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {

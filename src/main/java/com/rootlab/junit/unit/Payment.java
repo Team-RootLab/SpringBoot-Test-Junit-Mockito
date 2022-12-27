@@ -1,4 +1,4 @@
-package com.rootlab.junit.domain;
+package com.rootlab.junit.unit;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
