@@ -1,17 +1,17 @@
-package com.rootlab.junit.unit;
+package com.rootlab.junit.webmvc;
 
 import lombok.*;
 
 import javax.persistence.*;
 
-@Entity(name = "unit_payment")
+@Entity(name = "web_payment")
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 public class Payment {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@OneToOne
@@ -20,5 +20,4 @@ public class Payment {
 
 	@NonNull
 	private String creditCardNumber;
-
 }
