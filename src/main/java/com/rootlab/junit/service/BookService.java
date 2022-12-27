@@ -44,13 +44,11 @@ public class BookService {
 	}
 
 	public BookResponseDto getBookDto(Long id) {
-		Optional<Book> book = bookRepository.findById(id);
-		book.orElseThrow(
-				() -> {
-					throw new RuntimeException("해당 id의 Book 데이터를 찾을 수 없습니다.");
-				}
-		);
-		return book.get().toDto();
+		Book book = bookRepository.findById(id).orElseThrow(() -> {
+			throw new RuntimeException("해당 id의 Book 데이터를 찾을 수 없습니다.");
+		});
+
+		return book.toDto();
 	}
 
 	@Transactional(rollbackOn = RuntimeException.class)
@@ -60,13 +58,9 @@ public class BookService {
 
 	@Transactional(rollbackOn = RuntimeException.class)
 	public BookResponseDto updateBook(Long id, BookRequestDto dto) {
-		Optional<Book> optionalBook = bookRepository.findById(id);
-		optionalBook.orElseThrow(
-				() -> {
-					throw new RuntimeException("해당 id의 Book 데이터를 찾을 수 없습니다.");
-				}
-		);
-		Book book = optionalBook.get();
+		Book book = bookRepository.findById(id).orElseThrow(() -> {
+			throw new RuntimeException("해당 id의 Book 데이터를 찾을 수 없습니다.");
+		});
 		book.update(dto.getTitle(), dto.getAuthor());
 		return book.toDto();
 	}
