@@ -45,6 +45,14 @@ class BookApiControllerTest {
 	@Autowired
 	private BookRepository bookRepository;
 
+	/**
+	 * TestRestTemplate은 REST 방식으로 개발한 API의 Test를 최적화 하기 위해 만들어진 클래스이며
+	 * HTTP 요청 후 데이터를 응답 받을 수 있는 템플릿 객체이다.
+	 * getForObject() - 기본 http 헤더를 사용하여 결과를 객체로 반환받는다.
+	 * getForEntity() - 기본 http 헤더를 사용하여 결과를 ResponseEntity로 반환받는다.
+	 * exchange() - 결과를 ResponseEntity로 반환받는다. Http header를 변경할 수 있다.
+	 */
+
 	@Autowired
 	private TestRestTemplate restTemplate;
 
