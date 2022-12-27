@@ -1,4 +1,4 @@
-package com.rootlab.junit.webmvc;
+package com.rootlab.junit.test;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

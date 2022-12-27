@@ -1,4 +1,4 @@
-package com.rootlab.junit.webmvc;
+package com.rootlab.junit.test;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

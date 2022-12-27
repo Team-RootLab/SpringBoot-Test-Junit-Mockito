@@ -1,9 +1,10 @@
-package com.rootlab.junit.webmvc;
+package com.rootlab.junit.test;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -12,5 +13,5 @@ import java.time.LocalDateTime;
 public class Receipt {
 	private final LocalDateTime date;
 	private final String creditCardNumber;
-	private final Double amount;
+	private final BigDecimal amount;
 }

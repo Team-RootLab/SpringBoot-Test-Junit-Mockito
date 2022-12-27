@@ -1,4 +1,4 @@
-package com.rootlab.junit.webmvc;
+package com.rootlab.junit.test;
 
 import com.rootlab.junit.handler.GlobalExceptionHandler;
 import org.junit.jupiter.api.Test;
@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.persistence.EntityNotFoundException;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -58,7 +59,7 @@ class OrderControllerTest {
 	@Test
 	public void payOrder() throws Exception {
 		// given
-		Order order = new Order(1L, LocalDateTime.now(), 100.0, false);
+		Order order = new Order(1L, LocalDateTime.now(), BigDecimal.valueOf(100.0), false);
 		Payment payment = new Payment(1000L, order, "4532756279624064");
 		// stub
 		when(orderService.pay(eq(1L), eq("4532756279624064"))).thenReturn(payment);
@@ -104,7 +105,7 @@ class OrderControllerTest {
 	@Test
 	void getReceiptForOrder() throws Exception {
 		// given
-		Receipt receipt = new Receipt(LocalDateTime.now(), "4532756279624064", 100.0);
+		Receipt receipt = new Receipt(LocalDateTime.now(), "4532756279624064", BigDecimal.valueOf(100.0));
 		// stub
 		when(orderService.getReceipt(eq(1L))).thenReturn(receipt);
 		// when & then

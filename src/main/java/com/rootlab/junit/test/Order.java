@@ -1,23 +1,28 @@
-package com.rootlab.junit.unit;
+package com.rootlab.junit.test;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-@Entity(name = "unit_orders")
+@Entity(name = "orders")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class Order {
 	@Id
 	@GeneratedValue
 	private Long id;
-
-	private boolean paid;
+	@NonNull
+	private LocalDateTime date;
+	@NonNull
+	private BigDecimal amount;
+	@NonNull
+	private Boolean paid;
 
 	public boolean isPaid() {
 		return paid;
@@ -27,6 +32,4 @@ public class Order {
 		paid = true;
 		return this;
 	}
-
-
 }

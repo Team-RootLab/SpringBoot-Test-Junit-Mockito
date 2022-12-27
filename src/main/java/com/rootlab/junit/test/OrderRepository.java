@@ -1,4 +1,4 @@
-package com.rootlab.junit.unit;
+package com.rootlab.junit.test;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

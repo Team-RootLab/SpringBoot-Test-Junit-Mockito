@@ -1,4 +1,4 @@
-package com.rootlab.junit.unit;
+package com.rootlab.junit.test;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -6,6 +6,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -57,7 +59,7 @@ class OrderServiceTest {
 	@Test
 	public void payOrderTest() {
 		// given
-		Order order = new Order(1L, false);
+		Order order = new Order(1L, LocalDateTime.now(), BigDecimal.valueOf(100.0), false);
 		// stub
 		when(orderRepository.findById(1L)).thenReturn(Optional.of(order));
 		when(paymentRepository.save(any())).then(returnsFirstArg()); // input을 그대로 리턴
