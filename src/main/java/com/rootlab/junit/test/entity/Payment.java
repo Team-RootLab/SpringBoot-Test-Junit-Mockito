@@ -5,6 +5,9 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@Table(
+		uniqueConstraints = @UniqueConstraint(columnNames = {"order_id"})
+)
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor

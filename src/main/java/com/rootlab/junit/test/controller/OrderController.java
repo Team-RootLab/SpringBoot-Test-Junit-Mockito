@@ -5,9 +5,7 @@ import com.rootlab.junit.test.dto.PaymentRequest;
 import com.rootlab.junit.test.dto.PaymentResponse;
 import com.rootlab.junit.test.dto.Receipt;
 import com.rootlab.junit.test.entity.Payment;
-import com.rootlab.junit.test.exception.OrderAlreadyPaid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -36,13 +34,6 @@ public class OrderController {
 	public ResponseEntity<Receipt> getReceipt(@PathVariable("id") Long orderId) {
 		Receipt receipt = orderService.getReceipt(orderId);
 		return ResponseEntity.ok().body(receipt);
-	}
-
-	@ExceptionHandler
-	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-	@ResponseBody
-	public String handleOrderAlreadyPaid(OrderAlreadyPaid orderAlreadyPaid) {
-		return orderAlreadyPaid.getMessage();
 	}
 
 }
