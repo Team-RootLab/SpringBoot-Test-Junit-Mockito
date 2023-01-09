@@ -56,6 +56,8 @@ public class BookService {
 		bookRepository.deleteById(id);
 	}
 
+	// https://middleearth.tistory.com/11
+	// @Setter없이 Entity를 update하자
 	@Transactional(rollbackOn = RuntimeException.class)
 	public BookResponseDto updateBook(Long id, BookRequestDto dto) {
 		Book book = bookRepository.findById(id).orElseThrow(() -> {
