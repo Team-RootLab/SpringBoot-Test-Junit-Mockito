@@ -1,5 +1,6 @@
-package com.rootlab.junit.test;
+package com.rootlab.junit.test.repository;
 
+import com.rootlab.junit.test.entity.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

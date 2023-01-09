@@ -1,6 +1,12 @@
 package com.rootlab.junit.test;
 
 import com.rootlab.junit.handler.GlobalExceptionHandler;
+import com.rootlab.junit.test.controller.OrderController;
+import com.rootlab.junit.test.dto.Receipt;
+import com.rootlab.junit.test.entity.Order;
+import com.rootlab.junit.test.entity.Payment;
+import com.rootlab.junit.test.exception.OrderAlreadyPaid;
+import com.rootlab.junit.test.service.OrderService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

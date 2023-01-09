@@ -1,4 +1,4 @@
-package com.rootlab.junit.test;
+package com.rootlab.junit.test.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

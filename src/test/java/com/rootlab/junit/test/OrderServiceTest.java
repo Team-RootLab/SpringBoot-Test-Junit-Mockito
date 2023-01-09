@@ -1,5 +1,10 @@
 package com.rootlab.junit.test;
 
+import com.rootlab.junit.test.entity.Order;
+import com.rootlab.junit.test.entity.Payment;
+import com.rootlab.junit.test.repository.OrderRepository;
+import com.rootlab.junit.test.repository.PaymentRepository;
+import com.rootlab.junit.test.service.OrderService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

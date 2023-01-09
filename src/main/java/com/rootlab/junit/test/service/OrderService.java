@@ -1,5 +1,11 @@
-package com.rootlab.junit.test;
+package com.rootlab.junit.test.service;
 
+import com.rootlab.junit.test.dto.Receipt;
+import com.rootlab.junit.test.entity.Order;
+import com.rootlab.junit.test.entity.Payment;
+import com.rootlab.junit.test.exception.OrderAlreadyPaid;
+import com.rootlab.junit.test.repository.OrderRepository;
+import com.rootlab.junit.test.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

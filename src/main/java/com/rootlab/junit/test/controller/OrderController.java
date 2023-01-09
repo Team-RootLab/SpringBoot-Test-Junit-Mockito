@@ -1,5 +1,11 @@
-package com.rootlab.junit.test;
+package com.rootlab.junit.test.controller;
 
+import com.rootlab.junit.test.service.OrderService;
+import com.rootlab.junit.test.dto.PaymentRequest;
+import com.rootlab.junit.test.dto.PaymentResponse;
+import com.rootlab.junit.test.dto.Receipt;
+import com.rootlab.junit.test.entity.Payment;
+import com.rootlab.junit.test.exception.OrderAlreadyPaid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
