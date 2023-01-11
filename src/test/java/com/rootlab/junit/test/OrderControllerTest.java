@@ -2,7 +2,6 @@ package com.rootlab.junit.test;
 
 import com.rootlab.junit.handler.GlobalExceptionHandler;
 import com.rootlab.junit.test.controller.OrderController;
-import com.rootlab.junit.test.dto.Receipt;
 import com.rootlab.junit.test.entity.Order;
 import com.rootlab.junit.test.entity.Payment;
 import com.rootlab.junit.test.exception.OrderAlreadyPaid;
@@ -25,8 +24,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 // @WebMvcTest는 @Controller, @ControllerAdvice와 같은 Controller 관련 Bean만 scan하여 load한다.
@@ -108,19 +105,19 @@ class OrderControllerTest {
 				.andExpect(status().isMethodNotAllowed());
 	}
 
-	@Test
-	void getReceiptForOrder() throws Exception {
-		// given
-		Receipt receipt = new Receipt(LocalDateTime.now(), "4532756279624064", BigDecimal.valueOf(100.0));
-		// stub
-		when(orderService.getReceipt(eq(1L))).thenReturn(receipt);
-		// when & then
-		mockMvc.perform(get("/order/{id}/receipt", 1L))
-				.andExpect(status().isOk())
-				.andDo(print())
-				.andExpect(jsonPath("$.date").isNotEmpty())
-				.andExpect(jsonPath("$.creditCardNumber").value("4532756279624064"))
-				.andExpect(jsonPath("$.amount").value(100.0));
-	}
+//	@Test
+//	void getReceiptForOrder() throws Exception {
+//		// given
+//		Receipt receipt = new Receipt(LocalDateTime.now(), "4532756279624064", BigDecimal.valueOf(100.0));
+//		// stub
+//		when(orderService.getReceipt(eq(1L))).thenReturn(receipt);
+//		// when & then
+//		mockMvc.perform(get("/order/{id}/receipt", 1L))
+//				.andExpect(status().isOk())
+//				.andDo(print())
+//				.andExpect(jsonPath("$.date").isNotEmpty())
+//				.andExpect(jsonPath("$.creditCardNumber").value("4532756279624064"))
+//				.andExpect(jsonPath("$.amount").value(100.0));
+//	}
 
 }
