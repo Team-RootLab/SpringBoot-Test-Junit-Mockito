@@ -5,6 +5,13 @@ server:
     encoding:
       charset: utf-8
 
+#exchange-rate-api:
+#  base-url: https://v6.exchangerate-api.com/v6/
+#  api-key: random-api-key
+#twilio-api:
+#  base-url: https://api.twilio.com/2010-04-01
+#  account-sid: random-account-sid
+
 spring:
   datasource:
     url: jdbc:h2:mem:test
